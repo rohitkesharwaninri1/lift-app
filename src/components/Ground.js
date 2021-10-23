@@ -1,56 +1,63 @@
 import React from "react";
+import Lift from "./Lift";
+import Button from "@material-ui/core/Button";
+import ExpandLessIcon from "@material-ui/icons/ExpandLess";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import FloorImg from "../assests/floorImg.jpg";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    backgroundImage: `url(${FloorImg})`,
+    width: "100%",
+    height: "400px",
+    backgroundPositionY: "75%",
+    backgroundRepeat: "no-repeat",
+    backgroundColor: "#dadada",
+    backgroundSize: "cover",
+    borderBottom: "10px solid #000000",
+    padding: "20px 100px",
+  },
+  btn: {
+    width: "100px",
+    marginBottom: "10px",
+    marginRight: "200px",
+  },
+}));
 
 export default function Ground(props) {
-  const { data, liftInFloor, handleLift } = props;
+  const classes = useStyles();
+  const { liftInFloor, handleLift } = props;
 
   const onIncrement = () => {
-    handleLift(data + 1);
+    handleLift(0);
   };
 
   return (
-    <div>
+    <div className={classes.root}>
+      <Typography variant="h5" style={{ textAlign: "center" }}>
+        Ground Floor
+      </Typography>
+
       <div
         style={{
-          backgroundColor: "#dadada",
+          display: "flex",
           width: "100%",
-          height: "200px",
-          padding: "20px 200px",
         }}
       >
-        {liftInFloor === 0 && (
-          <div style={{ display: "flex", justifyItems: "center" }}>
-            <div style={{ display: "flex", margin: "0 100px" }}>
-              <div
-                style={{
-                  width: "50px",
-                  height: "100px",
-                  backgroundColor: "#ffffff",
-                  border: "1px solid #000000",
-                }}
-              ></div>
-              <div
-                style={{
-                  width: "50px",
-                  height: "100px",
-                  backgroundColor: "#ffffff",
-                  border: "1px solid #000000",
-                }}
-              ></div>
-            </div>
-          </div>
-        )}
-
-        <div
-          style={{
-            width: "100%",
-            justifyContent: "center",
-            display: "flex",
-            margin: "0 100px",
-          }}
-        >
-          <button onClick={onIncrement}>Up</button>
+        <div>
+          <Button
+            endIcon={<ExpandLessIcon />}
+            variant="outlined"
+            className={classes.btn}
+            color="primary"
+            onClick={onIncrement}
+          >
+            Up
+          </Button>
         </div>
-        <p style={{ textAlign: "center" }}>Ground Floor</p>
+
+        {liftInFloor === 0 && <Lift />}
       </div>
     </div>
   );

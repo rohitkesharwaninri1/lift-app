@@ -1,8 +1,20 @@
 import React, { useState, useEffect } from "react";
 import Floor from "./components/Floor";
 import Ground from "./components/Ground";
+import Header from "./components/Header";
+import "./App.css";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: "100%",
+    backgroundColor: "#ECECEC",
+    paddingTop: "100px",
+  },
+}));
 
 export default function App() {
+  const classes = useStyles();
   const [noOfFLoor, setNoOfFloor] = useState(4);
   const [liftArray, setLiftArray] = useState([]);
   const [liftInFloor, setLiftInFloor] = useState(0);
@@ -27,13 +39,8 @@ export default function App() {
   };
 
   return (
-    <div>
-      <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-        <form onSubmit={getInput}>
-          <input type="number" name="floor"></input>
-          <button type="submit">Add floor</button>
-        </form>
-      </div>
+    <div className={classes.root}>
+      <Header getInput={getInput} />
 
       {noOfFLoor !== 0 &&
         liftArray.map((item, index) => (
